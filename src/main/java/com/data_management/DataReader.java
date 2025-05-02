@@ -4,10 +4,18 @@ import java.io.IOException;
 
 public interface DataReader {
     /**
-     * Reads data from a specified source and stores it in the data storage.
-     * 
-     * @param dataStorage the storage where data will be stored
-     * @throws IOException if there is an error reading the data
+     * Connects to a real-time data source (e.g., WebSocket) and continuously receives data.
+     * Data is stored in the provided DataStorage implementation.
+     *
+     * @param dataStorage the storage where received data will be stored
+     * @throws IOException if there is an error during the connection or data reception
      */
-    void readData(DataStorage dataStorage) throws IOException;
+    void startStreaming(DataStorage dataStorage) throws IOException;
+
+    /**
+     * Stops the data streaming process and closes the connection to the data source.
+     *
+     * @throws IOException if there is an error closing the connection
+     */
+    void stopStreaming() throws IOException;
 }

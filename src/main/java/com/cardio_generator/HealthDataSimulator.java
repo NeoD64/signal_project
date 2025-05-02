@@ -144,6 +144,7 @@ public class HealthDataSimulator {
             scheduleTask(() -> bloodLevelsDataGenerator.generate(patientId, outputStrategy), 2, TimeUnit.MINUTES);
             scheduleTask(() -> alertGenerator.generate(patientId, outputStrategy), 20, TimeUnit.SECONDS);
         }
+
     }
 
     private static void scheduleTask(Runnable task, long period, TimeUnit timeUnit) {

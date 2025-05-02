@@ -6,6 +6,11 @@ import java.util.List;
 import java.util.Map;
 import com.alerts.AlertGenerator;
 import com.alerts.NotificationService;
+import com.sun.source.tree.SynchronizedTree;
+
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.SynchronousQueue;
+
 
 /**
  * Manages storage and retrieval of patient data within a healthcare monitoring
@@ -14,14 +19,16 @@ import com.alerts.NotificationService;
  * patient IDs.
  */
 public class DataStorage {
-    private Map<Integer, Patient> patientMap; // Stores patient objects indexed by their unique patient ID.
+    private Map<Integer, Patient> patientMap = new ConcurrentHashMap<>();
+    // Stores patient objects indexed by their unique patient ID.
+    private long START_TIME;
 
     /**
      * Constructs a new instance of DataStorage, initializing the underlying storage
      * structure.
      */
     public DataStorage() {
-        this.patientMap = new HashMap<>();
+        this.patientMap = new ConcurrentHashMap<>();
     }
 
     /**
@@ -38,13 +45,22 @@ public class DataStorage {
      *                         milliseconds since the Unix epoch
      */
     public void addPatientData(int patientId, double measurementValue, String recordType, long timestamp) {
-        Patient patient = patientMap.get(patientId);
-        if (patient == null) {
-            patient = new Patient(patientId);
-            patientMap.put(patientId, patient);
+        Patient patient = patientMap.computeIfAbsent(patientId, Patient::new);
+
+        synchronized (patient) {
+            List<PatientRecord> existingRecords = patient.getRecords(timestamp, timestamp);
+
+            boolean isDuplicate = existingRecords.stream().anyMatch(record ->
+                    record.getRecordType().equals(recordType)
+            );
+
+            if (!isDuplicate) {
+                patient.addRecord(measurementValue, recordType, timestamp);
+            }
         }
-        patient.addRecord(measurementValue, recordType, timestamp);
+
     }
+
 
     /**
      * Retrieves a list of PatientRecord objects for a specific patient, filtered by
@@ -62,10 +78,13 @@ public class DataStorage {
     public List<PatientRecord> getRecords(int patientId, long startTime, long endTime) {
         Patient patient = patientMap.get(patientId);
         if (patient != null) {
-            return patient.getRecords(startTime, endTime);
+            synchronized (patient) {
+                return patient.getRecords(startTime, endTime);
+            }
         }
-        return new ArrayList<>(); // return an empty list if no patient is found
+        return new ArrayList<>();
     }
+
 
     /**
      * Retrieves a collection of all patients stored in the data storage.
@@ -110,3 +129,4 @@ public class DataStorage {
         }
     }
 }
+
