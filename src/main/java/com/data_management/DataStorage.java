@@ -106,7 +106,7 @@ public class DataStorage {
 
         // Evaluate all patients' data to check for conditions that may trigger alerts
         for (Patient patient : storage.getAllPatients()) {
-            alertGenerator.evaluateData(patient);
+            alertGenerator.evaluateData(patient,System.currentTimeMillis());
         }
     }
 }

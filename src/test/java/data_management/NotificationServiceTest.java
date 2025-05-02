@@ -1,6 +1,6 @@
 package data_management;
 
-import com.alerts.Alert;
+import com.alerts.alertTypes.Alert;
 import com.alerts.NotificationService;
 
 public class NotificationServiceTest extends NotificationService {
