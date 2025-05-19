@@ -8,7 +8,18 @@ import com.data_management.PatientRecord;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * BloodPressureStrategy implements the AlertStrategy interface to check for blood pressure-related alerts.
+ * It checks for critical blood pressure levels and trends in the patient's records.
+ */
 public class BloodPressureStrategy implements AlertStrategy {
+    /**
+     * Checks for blood pressure-related alerts based on the provided patient records.
+     *
+     * @param patientId the ID of the patient
+     * @param Record    the list of patient records to check
+     * @param generator the AlertGenerator instance to trigger alerts
+     */
     @Override
     public void checkAlert(int patientId, List<PatientRecord> Record, AlertGenerator generator){
         List<PatientRecord> SystolicPressureRecords= Record.stream()

@@ -12,6 +12,10 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 
+/**
+ * Test class for AlertGenerator.
+ * This class contains unit tests to verify the functionality of the AlertGenerator class.
+ */
 public class AlertGeneratorTest {
 
     private DataStorage mockStorage;
@@ -19,14 +23,26 @@ public class AlertGeneratorTest {
     private NotificationServiceTest mockNotificationService;
     private final long now = System.currentTimeMillis();
 
+
     @BeforeEach
+    /**
+     * Sets up the test environment before each test case.
+     * Initializes a mock DataStorage and a mock NotificationService.
+     */
     public void setUp() {
         mockStorage = new DataStorage();
         mockNotificationService = new NotificationServiceTest();
         alertGenerator = new AlertGenerator(mockStorage, mockNotificationService);
     }
 
+
+
+
     @Test
+    /**
+     * Test case to verify that a critical systolic blood pressure triggers an alert.
+     * It adds a critical blood pressure reading to the mock storage and checks if the alert is generated.
+     */
     public void testCriticalSystolicBloodPressureTriggersAlert() {
         Patient patient = new Patient(1);
         mockStorage.addPatientData(1,  190,"SystolicPressure", now);
@@ -41,6 +57,10 @@ public class AlertGeneratorTest {
     }
 
     @Test
+    /**
+     * Test case to verify that a critical diastolic blood pressure triggers an alert.
+     * It adds a critical blood pressure reading to the mock storage and checks if the alert is generated.
+     */
     public void testDecreasingSystolicTrendTriggersAlert() {
         Patient patient = new Patient(2);
         mockStorage.addPatientData(2, 170,"SystolicPressure", now - 60000);
@@ -58,6 +78,10 @@ public class AlertGeneratorTest {
     }
 
     @Test
+    /**
+     * Test case to verify that a critical oxygen saturation triggers an alert.
+     * It adds a critical oxygen saturation reading to the mock storage and checks if the alert is generated.
+     */
     public void testCriticalSaturationTriggersAlert() {
         Patient patient = new Patient(3);
         mockStorage.addPatientData(3, 90, "Saturation", now);
@@ -73,6 +97,10 @@ public class AlertGeneratorTest {
     }
 
     @Test
+    /**
+     * Test case to verify that a rapid drop in oxygen saturation triggers an alert.
+     * It adds two oxygen saturation readings to the mock storage and checks if the alert is generated.
+     */
     public void testRapidSaturationDropTriggersAlert() {
         Patient patient = new Patient(4);
         mockStorage.addPatientData(4, 98,  "Saturation",now - 500000);
@@ -107,6 +135,10 @@ public class AlertGeneratorTest {
     }*/
 
     @Test
+    /**
+     * Test case to verify that a spike in ECG readings triggers an alert.
+     * It adds a series of low ECG readings followed by a spike and checks if the alert is generated.
+     */
     public void testECGAlertTriggersForSpike() {
         Patient patient = new Patient(6);
         // Fill with low values first

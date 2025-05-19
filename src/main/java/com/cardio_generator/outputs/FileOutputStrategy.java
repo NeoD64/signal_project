@@ -7,6 +7,10 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * {@code FileOutputStrategy} is an implementation of the {@code OutputStrategy} interface.
+ * It outputs data to a file, creating a new file for each unique label.
+ */
 public class FileOutputStrategy implements OutputStrategy {
 
     private String BaseDirectory;
@@ -18,6 +22,14 @@ public class FileOutputStrategy implements OutputStrategy {
         this.BaseDirectory = baseDirectory;
     }
 
+    /**
+     * Outputs the given data to a file.
+     *
+     * @param patientId The ID of the patient.
+     * @param timestamp The timestamp of the data.
+     * @param label     The label for the data.
+     * @param data      The actual data to be outputted.
+     */
     @Override
     public void output(int patientId, long timestamp, String label, String data) {
         try {

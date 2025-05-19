@@ -12,9 +12,15 @@ import java.util.concurrent.Executors;
 
 
 
-
+/**
+ * The {@code DataStorageTest} class contains unit tests for the {@link DataStorage} class.
+ * It verifies the functionality of adding and retrieving patient data records.
+ */
 class DataStorageTest {
 
+    /**
+     * Test to check if the DataStorage can add and retrieve records correctly.
+     */
     @Test
     void testAddAndGetRecords() {
         // TODO Perhaps you can implement a mock data reader to mock the test data?
@@ -28,6 +34,9 @@ class DataStorageTest {
         assertEquals(100.0, records.get(0).getMeasurementValue()); // Validate first record
     }
 
+    /**
+     * Test to check if the DataStorage can handle multiple patients and records.
+     */
     @Test
     public void testAddAndRetrieveSingleRecord() {
         DataStorage storage = new DataStorage();
@@ -41,6 +50,9 @@ class DataStorageTest {
         assertEquals(98.6, records.get(0).getMeasurementValue(), 0.001);
     }
 
+    /**
+     * Test to check if the DataStorage can handle multiple patients and records.
+     */
     @Test
     public void testPreventDuplicateRecords() {
         DataStorage storage = new DataStorage();
@@ -54,6 +66,10 @@ class DataStorageTest {
         assertEquals(1, records.size()); // Only one should be stored
     }
 
+
+    /**
+     * Test to check if the DataStorage can handle multiple patients and records.
+     */
     @Test
     public void testConcurrentPatientDataAddition() throws InterruptedException {
         DataStorage storage = new DataStorage();

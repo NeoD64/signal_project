@@ -9,7 +9,18 @@ import com.data_management.PatientRecord;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * OxygenSaturationStrategy implements the AlertStrategy interface to check for oxygen saturation-related alerts.
+ * It checks for critical oxygen saturation levels and trends in the patient's records.
+ */
 public class OxygenSaturationStrategy implements AlertStrategy {
+    /**
+     * Checks for oxygen saturation-related alerts based on the provided patient records.
+     *
+     * @param patientId the ID of the patient
+     * @param Record    the list of patient records to check
+     * @param generator the AlertGenerator instance to trigger alerts
+     */
     @Override
     public void checkAlert(int patientId, List<PatientRecord> Record, AlertGenerator generator) {
 
