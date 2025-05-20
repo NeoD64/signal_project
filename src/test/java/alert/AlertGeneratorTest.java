@@ -1,13 +1,11 @@
-package data_management;
+package alert;
 
 
 import com.alerts.AlertGenerator;
-import com.alerts.NotificationService;
 import com.data_management.DataStorage;
 import com.data_management.Patient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -1,9 +1,7 @@
-package data_management;
+package alert;
 
 import com.alerts.alertTypes.Alert;
 import com.alerts.NotificationService;
-
-import com.alerts.alertTypes.ECGAlert;
 
 /**
  * NotificationServiceTest is a mock implementation of the NotificationService class.
